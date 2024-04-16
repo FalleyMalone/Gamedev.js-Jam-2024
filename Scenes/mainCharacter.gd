@@ -1,9 +1,15 @@
 extends CharacterBody2D
 
-
-const SPEED = 300.0
+var can_fire = true
+#Max Speed
+const mSPEED = 400.0
+#Start Speed
+const sSPEED = 75.0
+#Turn Around Time
+const tuTime = 12
 const JUMP_VELOCITY = -300.0
-const acceleration = 5
+const acceleration = 2
+var extraV := Vector2.ZERO
 @onready var sprite_2d = $Sprite2D
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -31,12 +37,29 @@ func _physics_process(delta):
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction = Input.get_axis("ui_left", "ui_right")
+	var direction = Input.get_axis("Left", "Right")
 	if is_on_floor():
-		if direction:
-			velocity.x = move_toward(velocity.x, direction * SPEED, acceleration)
-		else:
+		if direction && direction * abs(velocity.x) == velocity.x: #Normal start up
+			if velocity.x < sSPEED * direction && velocity.x >= 0 || velocity.x > sSPEED * direction && velocity.x <= 0:
+				velocity.x = move_toward(velocity.x, direction * sSPEED, 10)
+			else:
+				velocity.x = move_toward(velocity.x, direction * mSPEED, acceleration)
+		elif direction: #Turning around while moving
+			velocity.x = move_toward(velocity.x, direction * sSPEED, tuTime)
+		else: #Letting yourself roll to a stop
 			velocity.x = move_toward(velocity.x, 0, 10)
+
+	if not is_on_floor() && direction && (velocity.x < sSPEED * direction && velocity.x >= 0 || velocity.x > sSPEED * direction && velocity.x <= 0) :
+		velocity.x = move_toward(velocity.x, direction * sSPEED, 8)
+		
+	if Input.is_action_pressed("Fire") && can_fire:
+		var diff := (global_position-get_global_mouse_position()).normalized()*1000
+		extraV = diff
+		#if velocity > velocity + extraV
+		velocity = velocity + extraV
+		can_fire = false
+		await get_tree().create_timer(1).timeout
+		can_fire = true
 
 	move_and_slide()
 	
