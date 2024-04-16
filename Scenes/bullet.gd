@@ -11,7 +11,7 @@ func _process(delta):
 	Vector2(1.0,0.0)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _physics_process(delta):
+func _physics_process(_delta):
 	await get_tree().create_timer(0.01).timeout
 	#$sprite.frame = 1
 	set_physics_process(false)

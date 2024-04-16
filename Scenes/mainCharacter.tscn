@@ -364,7 +364,7 @@ position = Vector2(2.10369e-07, 1.43051e-06)
 scale = Vector2(0.85, 0.85)
 shape = SubResource("RectangleShape2D_h6i2u")
 
-[node name="Gun" type="Sprite2D" parent="." groups=["mainCharacter"]]
+[node name="Guns" type="Sprite2D" parent="." groups=["mainCharacter"]]
 texture_filter = 1
 position = Vector2(4.76837e-07, 3.52941)
 scale = Vector2(0.670168, 0.968954)
@@ -372,5 +372,18 @@ texture = ExtResource("9_gnggf")
 offset = Vector2(10, 0)
 script = ExtResource("10_5usqe")
 
-[node name="Marker2D" type="Marker2D" parent="Gun" groups=["mainCharacter"]]
+[node name="gOne" type="Marker2D" parent="Guns" groups=["mainCharacter"]]
 position = Vector2(31.5987, 1.04992e-08)
+
+[node name="Sprite2D" type="Sprite2D" parent="Guns" groups=["mainCharacter"]]
+show_behind_parent = true
+z_as_relative = false
+position = Vector2(17.5549, -2.42833)
+scale = Vector2(0.939655, 0.789629)
+texture = ExtResource("9_gnggf")
+
+[node name="gTwo" type="Marker2D" parent="Guns" groups=["mainCharacter"]]
+position = Vector2(35.1097, -2.42833)
+
+[connection signal="shot" from="Guns" to="." method="_on_guns_shot"]
+[connection signal="shot" from="Guns" to="." method="_on_gun_shot"]
