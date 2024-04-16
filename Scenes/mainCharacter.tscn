@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://q0rybg88ly5o"]
+[gd_scene load_steps=54 format=3 uid="uid://q0rybg88ly5o"]
 
 [ext_resource type="Texture2D" uid="uid://bsfkn1c02wx3e" path="res://Ninja Frog/Jump (32x32).png" id="1_fmm2h"]
 [ext_resource type="Script" path="res://Scenes/mainCharacter.gd" id="1_ifahi"]
@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://wfvuyy1s20us" path="res://Ninja Frog/Hit (32x32).png" id="4_qvwdt"]
 [ext_resource type="Texture2D" uid="uid://lphqjpdsn5di" path="res://Ninja Frog/Run (32x32).png" id="4_tghcw"]
 [ext_resource type="Texture2D" uid="uid://hahx1ilasva1" path="res://Ninja Frog/Wall Jump (32x32).png" id="8_ir5dx"]
+[ext_resource type="Texture2D" uid="uid://bf54ulc3nvmsv" path="res://MSC Sprites/sGun.png" id="9_gnggf"]
+[ext_resource type="Script" path="res://Scenes/Gun.gd" id="10_5usqe"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_we53i"]
 atlas = ExtResource("2_dind7")
@@ -341,14 +343,14 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h6i2u"]
-size = Vector2(11.3333, 14)
+size = Vector2(22.1453, 24.9135)
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="mainCharacter" type="CharacterBody2D" groups=["mainCharacter"]]
 position = Vector2(0, -1)
 scale = Vector2(0.85, 0.85)
 script = ExtResource("1_ifahi")
 
-[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+[node name="Sprite2D" type="AnimatedSprite2D" parent="." groups=["mainCharacter"]]
 texture_filter = 1
 position = Vector2(0.333334, -1.66666)
 scale = Vector2(0.85, 0.85)
@@ -357,7 +359,18 @@ animation = &"wJump"
 autoplay = "default"
 frame_progress = 0.132318
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -2)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["mainCharacter"]]
+position = Vector2(2.10369e-07, 1.43051e-06)
 scale = Vector2(0.85, 0.85)
 shape = SubResource("RectangleShape2D_h6i2u")
+
+[node name="Gun" type="Sprite2D" parent="." groups=["mainCharacter"]]
+texture_filter = 1
+position = Vector2(4.76837e-07, 3.52941)
+scale = Vector2(0.670168, 0.968954)
+texture = ExtResource("9_gnggf")
+offset = Vector2(10, 0)
+script = ExtResource("10_5usqe")
+
+[node name="Marker2D" type="Marker2D" parent="Gun" groups=["mainCharacter"]]
+position = Vector2(31.5987, 1.04992e-08)
