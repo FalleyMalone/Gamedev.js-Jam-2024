@@ -1,20 +1,27 @@
 extends CharacterBody2D
 
-var can_fire = true
 #Max Speed
 const mSPEED = 400.0
 #Start Speed
 const sSPEED = 75.0
 #Turn Around Time
 const tuTime = 12
+#Jump hight
 const JUMP_VELOCITY = -300.0
+#Running acceleration
 const acceleration = 2
+#Max v from KB
+const mKB = 1400.0
+
 var extraV := Vector2.ZERO
+var can_fire = true
 @onready var sprite_2d = $Sprite2D
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
+func _ready():
+	set_z_index(1)
 
 func _physics_process(delta):
 	if is_on_floor():
@@ -36,7 +43,6 @@ func _physics_process(delta):
 		velocity.y = JUMP_VELOCITY
 
 	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
 	var direction = Input.get_axis("Left", "Right")
 	if is_on_floor():
 		if direction && direction * abs(velocity.x) == velocity.x: #Normal start up
@@ -48,20 +54,19 @@ func _physics_process(delta):
 			velocity.x = move_toward(velocity.x, direction * sSPEED, tuTime)
 		else: #Letting yourself roll to a stop
 			velocity.x = move_toward(velocity.x, 0, 10)
-
+	
+	#Mid air controls
 	if not is_on_floor() && direction && (velocity.x < sSPEED * direction && velocity.x >= 0 || velocity.x > sSPEED * direction && velocity.x <= 0) :
 		velocity.x = move_toward(velocity.x, direction * sSPEED, 8)
-		
-	if Input.is_action_pressed("Fire") && can_fire:
-		var diff := (global_position-get_global_mouse_position()).normalized()*1000
-		extraV = diff
-		#if velocity > velocity + extraV
-		velocity = velocity + extraV
-		can_fire = false
-		await get_tree().create_timer(1).timeout
-		can_fire = true
 
 	move_and_slide()
 	
 	var isLeft = velocity.x < 0
 	sprite_2d.flip_h = isLeft
+
+func _on_guns_shot(direction):
+	var tVelocity = direction + velocity
+	tVelocity.x = clamp(tVelocity.x, -mKB, mKB)
+	tVelocity.y = clamp(tVelocity.y, -mKB, mKB)
+	velocity = tVelocity
+	print("Velocity " + str(velocity))
