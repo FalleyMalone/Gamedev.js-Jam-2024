@@ -64,16 +64,9 @@ func _physics_process(delta):
 	var isLeft = velocity.x < 0
 	sprite_2d.flip_h = isLeft
 
-#Gun One Knockback
-func _on_gun_shot(direction):
-	var tVelocity = direction + velocity
-	velocity = tVelocity
-
-#Gun Two Knockback
-func _on_gun_two_shot(direction):
-	var tVelocity = direction + velocity
-	velocity = tVelocity
-
 func _on_guns_shot(direction):
 	var tVelocity = direction + velocity
+	tVelocity.x = clamp(tVelocity.x, -mKB, mKB)
+	tVelocity.y = clamp(tVelocity.y, -mKB, mKB)
 	velocity = tVelocity
+	print("Velocity " + str(velocity))
