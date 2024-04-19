@@ -45,7 +45,7 @@ slide={
 
 [physics]
 
-2d/default_gravity=120.0
+2d/default_gravity=400.0
 
 [rendering]
 

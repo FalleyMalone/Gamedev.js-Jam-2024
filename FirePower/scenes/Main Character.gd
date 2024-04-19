@@ -2,16 +2,17 @@ extends CharacterBody2D
 
 
 const SPEED = 350.0
-const JUMP_VELOCITY = -200.0
+const JUMP_VELOCITY = -1738.0
 const acc = 50 
 const friction = 70
 const wall_jump_pushback = 100
-#const
-#const
+const gravity = 400
+const wall_slide_gravity = 100
+var is_wall_sliding = false
+
 @onready var sprite_2d = $Sprite2D
 
-# Get the gravity from the project settings to be synced with RigidBody nodes.
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+
 
 
 func _physics_process(delta):
@@ -20,12 +21,18 @@ func _physics_process(delta):
 		sprite_2d.animation = "running"
 	else:
 			sprite_2d.animation = "idle"
-	if not is_on_floor() and velocity.y < 0:
+	if not is_on_floor() and velocity.y > 0:
 			sprite_2d.animation = "fall"
 	if is_on_wall_only() and velocity.y  > 0 and Input.is_action_pressed("right"):
 		sprite_2d.animation = "wall jump"
 	if is_on_wall_only() and velocity.y  > 0 and Input.is_action_pressed("left"):
 		sprite_2d.animation = "wall jump r"
+	if Input.is_action_pressed("jump") and velocity.y < 0:
+		sprite_2d.animation = "jumping"
+		
+	jump()
+	wall_slide(delta)
+	
 
 	
 	
@@ -48,7 +55,7 @@ func _physics_process(delta):
 		velocity.x = move_toward(velocity.x, 0, 12)
 
 #Sliding
-	if Input.is_action_just_pressed("slide") and is_on_floor():
+	if Input.is_action_pressed("slide") and is_on_floor():
 		velocity.x = direction * SPEED
 		sprite_2d.animation = "slide"
 
@@ -67,11 +74,22 @@ func jump():
 	if Input.is_action_just_pressed("jump"):
 		if is_on_floor():
 			velocity.y = JUMP_VELOCITY
-		if is_on_wall_only() and Input.is_action_pressed("right"):
+		if is_on_wall() and Input.is_action_pressed("right"):
 			velocity.y = JUMP_VELOCITY
 			velocity.x = -wall_jump_pushback
-		if is_on_wall_only() and Input.is_action_pressed("left"):
+		if is_on_wall() and Input.is_action_pressed("left"):
 			velocity.y = JUMP_VELOCITY
 			velocity.x = wall_jump_pushback
-
+func wall_slide(delta):
+	if is_on_wall_only() and !is_on_floor():
+		if Input.is_action_pressed("left") or Input.is_action_pressed("right"):
+			is_wall_sliding = true
+		else:
+			is_wall_sliding = false
+	else:
+		is_wall_sliding = false
+	
+	if is_wall_sliding:
+		velocity.y += (wall_slide_gravity * delta)
+		velocity.y = min(velocity.y, wall_slide_gravity)
 
