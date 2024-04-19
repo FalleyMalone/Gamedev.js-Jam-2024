@@ -25,8 +25,10 @@ func _ready():
 
 func _physics_process(delta):
 	if is_on_floor():
-		if (velocity.x > 1 || velocity.x < -1):
+		if (velocity.x > 300 || velocity.x < -300):
 			sprite_2d.animation = "running"
+		elif (velocity.x > 1 || velocity.x < -1):
+			sprite_2d.animation = "walking"
 		else:
 			sprite_2d.animation = "default"
 	
