@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cyk3a4rc0jvky"
+path="res://.godot/imported/GOOD GUY - _COME OUT WITH YOUR HANDS UP!_ (pre-mix, 1st version).mp3-67fcc461780fea124bca2ae709893904.mp3str"
+
+[deps]
+
+source_file="res://audoi/music/GOOD GUY - _COME OUT WITH YOUR HANDS UP!_ (pre-mix, 1st version).mp3"
+dest_files=["res://.godot/imported/GOOD GUY - _COME OUT WITH YOUR HANDS UP!_ (pre-mix, 1st version).mp3-67fcc461780fea124bca2ae709893904.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

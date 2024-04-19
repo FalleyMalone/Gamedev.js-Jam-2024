@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b0kmbrw1d161i"
+path="res://.godot/imported/Herv - A Hare's Rush.mp3-0c287d72b52b049a7cc9f4c4a72b1673.mp3str"
+
+[deps]
+
+source_file="res://audoi/music/Herv - A Hare's Rush.mp3"
+dest_files=["res://.godot/imported/Herv - A Hare's Rush.mp3-0c287d72b52b049a7cc9f4c4a72b1673.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

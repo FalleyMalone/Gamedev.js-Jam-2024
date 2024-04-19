@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bx01r7x4fvwqf"
+path="res://.godot/imported/Herv - At the moment of commitment, the universe conspires to assist you.mp3-74e20c8d3d1fce05f4226868e47d0caf.mp3str"
+
+[deps]
+
+source_file="res://audoi/music/Herv - At the moment of commitment, the universe conspires to assist you.mp3"
+dest_files=["res://.godot/imported/Herv - At the moment of commitment, the universe conspires to assist you.mp3-74e20c8d3d1fce05f4226868e47d0caf.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
