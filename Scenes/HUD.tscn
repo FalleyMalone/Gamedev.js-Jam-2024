@@ -1,0 +1,97 @@
+[gd_scene load_steps=7 format=3 uid="uid://coy73h3rajtln"]
+
+[ext_resource type="Script" path="res://Scenes/HUD.gd" id="1_xlnvd"]
+[ext_resource type="FontFile" uid="uid://cbreffcnrennk" path="res://Theme Items/Jersey15-Regular.ttf" id="2_ybue5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6g7vd"]
+skew = Vector2(-1, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cmj4f"]
+bg_color = Color(0.74902, 0.00392157, 0.207843, 1)
+skew = Vector2(-1, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.8, 0.8, 0.8, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f5isb"]
+bg_color = Color(0.517647, 0.517647, 0.517647, 1)
+skew = Vector2(1, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mlmvf"]
+bg_color = Color(0, 0.513726, 0.807843, 1)
+skew = Vector2(1, 0)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.8, 0.8, 0.8, 0)
+
+[node name="HUD" type="CanvasLayer" groups=["HUD"]]
+script = ExtResource("1_xlnvd")
+
+[node name="Score" type="Label" parent="." groups=["HUD"]]
+offset_left = 524.0
+offset_top = 7.0
+offset_right = 564.0
+offset_bottom = 38.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+theme_override_fonts/font = ExtResource("2_ybue5")
+theme_override_font_sizes/font_size = 30
+horizontal_alignment = 1
+
+[node name="RedCharge" type="ProgressBar" parent="." groups=["HUD"]]
+offset_left = 988.0
+offset_top = 598.0
+offset_right = 1129.0
+offset_bottom = 625.0
+theme_override_styles/background = SubResource("StyleBoxFlat_6g7vd")
+theme_override_styles/fill = SubResource("StyleBoxFlat_cmj4f")
+max_value = 4.0
+fill_mode = 1
+show_percentage = false
+
+[node name="BlueCharge" type="ProgressBar" parent="." groups=["HUD"]]
+offset_left = 33.0
+offset_top = 599.0
+offset_right = 154.0
+offset_bottom = 628.0
+theme_override_styles/background = SubResource("StyleBoxFlat_f5isb")
+theme_override_styles/fill = SubResource("StyleBoxFlat_mlmvf")
+max_value = 4.0
+show_percentage = false
+
+[node name="MarginContainer" type="MarginContainer" parent="." groups=["HUD"]]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Rows" type="VBoxContainer" parent="MarginContainer" groups=["HUD"]]
+layout_mode = 2
+
+[node name="Top" type="HBoxContainer" parent="MarginContainer/Rows" groups=["HUD"]]
+layout_mode = 2
+
+[node name="Mid" type="HBoxContainer" parent="MarginContainer/Rows" groups=["HUD"]]
+layout_mode = 2
+
+[node name="Bottom" type="HBoxContainer" parent="MarginContainer/Rows" groups=["HUD"]]
+layout_mode = 2

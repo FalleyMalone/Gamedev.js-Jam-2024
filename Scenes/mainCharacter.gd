@@ -1,5 +1,8 @@
 extends CharacterBody2D
 
+signal bCharge_changed
+signal rCharge_changed
+
 #Max Speed
 const mSPEED = 400.0
 #Start Speed
@@ -60,7 +63,7 @@ func _physics_process(delta):
 	#Mid air controls
 	if not is_on_floor() && direction && (velocity.x < sSPEED * direction && velocity.x >= 0 || velocity.x > sSPEED * direction && velocity.x <= 0) :
 		velocity.x = move_toward(velocity.x, direction * sSPEED, 8)
-
+	
 	move_and_slide()
 	
 	var isLeft = velocity.x < 0
@@ -72,3 +75,9 @@ func _on_guns_shot(direction):
 	tVelocity.y = clamp(tVelocity.y, -mKB, mKB)
 	velocity = tVelocity
 	print("Velocity " + str(velocity))
+
+func _on_guns_b_charge_changed(level):
+	emit_signal("bCharge_changed", level)
+
+func _on_guns_r_charge_changed(level):
+	emit_signal("rCharge_changed", level)
