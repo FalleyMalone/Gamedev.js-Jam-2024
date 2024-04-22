@@ -5,11 +5,14 @@ extends CanvasLayer
 
 var scoreVal = 100
 var buffer = true
+var clock = 0.0
 
+#Pick-up buffer
 const bufferVal = 0.5
 
 func _process(delta):
-	if scoreVal > 0 && buffer:
+	clock += delta
+	if scoreVal > 0 && buffer && int(clock) % 2 == 0:
 		scoreVal -= delta
 	$Score.text = str(int(scoreVal)) + "%"
 
@@ -25,3 +28,10 @@ func _on_main_character_b_charge_changed(new_bEnergy):
 
 func _on_main_character_r_charge_changed(new_rEnergy):
 	rEnergy.value = new_rEnergy
+
+func _on_main_character_shot(level):
+	var sCost = (level * 2) + 2
+	if sCost < scoreVal:
+		scoreVal -= sCost
+	else:
+		scoreVal = 0
