@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://bwo2sn7oux30w"]
+
+[ext_resource type="Script" path="res://Scenes/bulletB.gd" id="1_u1j7s"]
+[ext_resource type="Texture2D" uid="uid://c1upd2dx2fax2" path="res://RoBo Sprites/Bullets1.png" id="2_7nugm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_t5ih4"]
+radius = 5.0
+
+[node name="Bullet" type="Area2D"]
+script = ExtResource("1_u1j7s")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-1, 8)
+texture = ExtResource("2_7nugm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(5, 0.5)
+shape = SubResource("CircleShape2D_t5ih4")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(0, 0.5)
+scale = Vector2(1, 0.55)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
