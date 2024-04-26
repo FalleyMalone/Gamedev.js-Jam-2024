@@ -42,6 +42,7 @@ border_color = Color(0.8, 0.8, 0.8, 0)
 script = ExtResource("1_xlnvd")
 
 [node name="Score" type="Label" parent="." groups=["HUD"]]
+visible = false
 z_index = 1
 offset_left = 533.0
 offset_top = 8.0
@@ -78,6 +79,7 @@ max_value = 4.0
 show_percentage = false
 
 [node name="TopBar" type="Sprite2D" parent="."]
+visible = false
 texture_filter = 1
 position = Vector2(576, 72)
 scale = Vector2(3, 3)

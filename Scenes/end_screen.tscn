@@ -1,0 +1,92 @@
+[gd_scene load_steps=10 format=3 uid="uid://beh2v6rjnojvn"]
+
+[ext_resource type="Script" path="res://Scenes/end_screen.gd" id="1_8qqhx"]
+[ext_resource type="Texture2D" uid="uid://cyryv5coh3y5g" path="res://MSC Sprites/Blue.png" id="1_tk7ai"]
+[ext_resource type="Texture2D" uid="uid://casjc61o3321h" path="res://MSC Sprites/Winner.png" id="2_2g20x"]
+[ext_resource type="Texture2D" uid="uid://c77oc3p4mnvds" path="res://RoBo Sprites/Test-W_Guns/Idle-Still1.png" id="3_3bgwk"]
+[ext_resource type="Texture2D" uid="uid://c6yt0hiyxykbt" path="res://RoBo Sprites/Test-W_Guns/Falling.png" id="4_60atk"]
+[ext_resource type="Texture2D" uid="uid://dwmsa6nqsah0v" path="res://RoBo Sprites/Test-W_Guns/Jump.png" id="5_jm32a"]
+[ext_resource type="Texture2D" uid="uid://cj1383eexrbdd" path="res://RoBo Sprites/Test-W_Guns/Sprinting1.png" id="6_13wsd"]
+[ext_resource type="Texture2D" uid="uid://bjaj6w1j83365" path="res://MSC Sprites/FinalScore.png" id="8_qotsu"]
+[ext_resource type="FontFile" uid="uid://cbreffcnrennk" path="res://Theme Items/Jersey15-Regular.ttf" id="9_1xte0"]
+
+[node name="End Screen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8qqhx")
+metadata/_edit_lock_ = true
+
+[node name="TextureRect" type="TextureRect" parent="."]
+texture_filter = 1
+layout_mode = 0
+offset_left = -66.0
+offset_top = -25.0
+offset_right = 1201.0
+offset_bottom = 759.0
+texture = ExtResource("1_tk7ai")
+stretch_mode = 1
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(579, 291)
+scale = Vector2(2.28333, 1.94886)
+texture = ExtResource("2_2g20x")
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(907, 375)
+rotation = 0.322886
+texture = ExtResource("3_3bgwk")
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(914, 197)
+rotation = -0.214676
+texture = ExtResource("4_60atk")
+
+[node name="Sprite2D4" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(261, 370)
+rotation = -0.1309
+texture = ExtResource("5_jm32a")
+
+[node name="Sprite2D5" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(262, 193)
+rotation = 0.322886
+texture = ExtResource("6_13wsd")
+
+[node name="Sprite2D6" type="Sprite2D" parent="."]
+visible = false
+texture_filter = 1
+position = Vector2(567, 402)
+scale = Vector2(2.28333, 1.94886)
+texture = ExtResource("8_qotsu")
+
+[node name="Label" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 525.0
+offset_top = 369.0
+offset_right = 634.0
+offset_bottom = 396.0
+theme_override_fonts/font = ExtResource("9_1xte0")
+theme_override_font_sizes/font_size = 27
+text = "Final Score"
+
+[node name="Score" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 560.0
+offset_top = 404.0
+offset_right = 600.0
+offset_bottom = 427.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("9_1xte0")

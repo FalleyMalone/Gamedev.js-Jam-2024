@@ -1,4 +1,5 @@
 extends Area2D
+signal pickedup
 
 
 # Called when the node enters the scene tree for the first time.
@@ -15,4 +16,5 @@ func _physics_process(_delta):
 
 
 func _on_body_entered(_body):
+	emit_signal("pickedup")
 	queue_free()

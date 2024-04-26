@@ -1,4 +1,5 @@
 extends CanvasLayer
+signal pow
 
 @onready var bEnergy = $BlueCharge
 @onready var rEnergy = $RedCharge
@@ -35,3 +36,14 @@ func _on_main_character_shot(level):
 		scoreVal -= sCost
 	else:
 		scoreVal = 0
+
+func _on_energy_cell_pickedup():
+	scoreVal += 10
+	buffer = false
+	await get_tree().create_timer(bufferVal).timeout
+	buffer = true
+	$Score.text = str(int(scoreVal)) + "%"
+
+func _on_flag_end():
+	emit_signal("pow", str(int(scoreVal)) + "%")
+	get_tree().change_scene_to_file("res://Scenes/end_screen.tscn")
