@@ -286,6 +286,7 @@ animation = &"T0"
 offset = Vector2(8, -2)
 
 [connection signal="flipSprite" from="." to="Guns" method="_on_main_character_flip_sprite"]
+[connection signal="on_floor" from="." to="Guns" method="_on_main_character_on_floor"]
 [connection signal="bCharge_changed" from="Guns" to="." method="_on_guns_b_charge_changed"]
 [connection signal="rCharge_changed" from="Guns" to="." method="_on_guns_r_charge_changed"]
 [connection signal="shot" from="Guns" to="." method="_on_guns_shot"]

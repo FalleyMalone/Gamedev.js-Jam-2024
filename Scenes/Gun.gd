@@ -10,17 +10,20 @@ var bulletB = preload("res://Scenes/bulletB.tscn")
 
 var bulletR = preload("res://Scenes/bulletR.tscn")
 
-const power_1 = 400
+const power_1 = 500
 const power_2 = 600
-const power_3 = 800
-const power_4 = 1000
+const power_3 = 700
+const power_4 = 800
 
 const coolDown = 0.5
 
 @export
 var chargeTime: float = 1.0
+var bAmmo = 1
+var rAmmo = 1
+var cdB = true
+var cdR = true
 
-var cdB = 0.0
 var current_stateB: ChargeStateB = ChargeStateB.T0
 var state_timerB: float = 0.0
 enum ChargeStateB {
@@ -31,7 +34,7 @@ enum ChargeStateB {
 	T4
 }
 
-var cdR = 0.0
+
 var current_stateR = ChargeStateR.T0
 var state_timerR: float = 0.0
 enum ChargeStateR {
@@ -118,14 +121,15 @@ func _change_flipState(new_state: flipState) -> void:
 func _process(delta: float) -> void:
 	match current_stateB:
 		ChargeStateB.T0:
-			cdB -= delta
-			if Input.is_action_just_pressed("FireL") && cdB <= 0.0:
+			if Input.is_action_just_pressed("FireL") && bAmmo > 0:
 				_change_state_B(ChargeStateB.T1)
 		ChargeStateB.T1:
 			state_timerB -= delta
 			if state_timerB <= 0.0:
 				_change_state_B(ChargeStateB.T2)
 			if Input.is_action_just_released("FireL"):
+				if not cdB:
+					bAmmo = 0
 				fire(power_1, "Blue", 1)
 				_change_state_B(ChargeStateB.T0)
 		ChargeStateB.T2:
@@ -133,6 +137,8 @@ func _process(delta: float) -> void:
 			if state_timerB <= 0.0:
 				_change_state_B(ChargeStateB.T3)
 			if Input.is_action_just_released("FireL"):
+				if not cdB:
+					bAmmo = 0
 				fire(power_2, "Blue", 2)
 				_change_state_B(ChargeStateB.T0)
 		ChargeStateB.T3:
@@ -140,23 +146,28 @@ func _process(delta: float) -> void:
 			if state_timerB <= 0.0:
 				_change_state_B(ChargeStateB.T4)
 			if Input.is_action_just_released("FireL"):
+				if not cdB:
+					bAmmo = 0
 				fire(power_3, "Blue", 3)
 				_change_state_B(ChargeStateB.T0)
 		ChargeStateB.T4:
 			if Input.is_action_just_released("FireL"):
+				if not cdB:
+					bAmmo = 0
 				fire(power_4, "Blue", 4)
 				_change_state_B(ChargeStateB.T0)
 	
 	match current_stateR:
 		ChargeStateR.T0:
-			cdR -= delta
-			if Input.is_action_just_pressed("FireR") && cdR <= 0.0:
+			if Input.is_action_just_pressed("FireR") && rAmmo > 0:
 				_change_state_R(ChargeStateR.T1)
 		ChargeStateR.T1:
 			state_timerR -= delta
 			if state_timerR <= 0.0:
 				_change_state_R(ChargeStateR.T2)
 			if Input.is_action_just_released("FireR"):
+				if not cdR:
+					rAmmo = 0
 				fire(power_1, "Red", 1)
 				_change_state_R(ChargeStateR.T0)
 		ChargeStateR.T2:
@@ -164,6 +175,8 @@ func _process(delta: float) -> void:
 			if state_timerR <= 0.0:
 				_change_state_R(ChargeStateR.T3)
 			if Input.is_action_just_released("FireR"):
+				if not cdR:
+					rAmmo = 0
 				fire(power_2, "Red", 2)
 				_change_state_R(ChargeStateR.T0)
 		ChargeStateR.T3:
@@ -171,10 +184,14 @@ func _process(delta: float) -> void:
 			if state_timerR <= 0.0:
 				_change_state_R(ChargeStateR.T4)
 			if Input.is_action_just_released("FireR"):
+				if not cdR:
+					rAmmo = 0
 				fire(power_3, "Red", 3)
 				_change_state_R(ChargeStateR.T0)
 		ChargeStateR.T4:
 			if Input.is_action_just_released("FireR"):
+				if not cdR:
+					rAmmo = 0
 				fire(power_4, "Red", 4)
 				_change_state_R(ChargeStateR.T0)
 
@@ -215,3 +232,11 @@ func _on_main_character_flip_sprite(toggle):
 		rGun.offset.y = -2
 		bGun.z_index = 3
 		rGun.z_index = 1
+
+
+func _on_main_character_on_floor(switch):
+	cdB = switch
+	cdR = switch
+	if switch:
+		bAmmo = 1
+		rAmmo = 1

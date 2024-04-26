@@ -4,7 +4,7 @@ signal bCharge_changed
 signal rCharge_changed
 signal flipSprite
 signal shot
-signal hurt
+signal on_floor
 
 #Max Speed
 const mSPEED = 400.0
@@ -110,19 +110,17 @@ func _change_state_gaState(new_state: gaState) -> void:
 	current_ga_state = new_state
 	match current_ga_state:
 		gaState.ground:
+			emit_signal("on_floor", true)
 			agBuffer_helper()
 			_change_state_airState(airState.off)
 		gaState.air:
+			emit_signal("on_floor", false)
 			_change_state_groundState(groundState.off)
 			if (velocity.y < 0):
 				_change_state_airState(airState.accending)
 			else:
 				_change_state_airState(airState.decending)
-		gaState.sliding:
-			_change_state_groundState(groundState.off)
-			_change_state_airState(airState.off)
-			sprite_2d.animation = "sliding"
-			print("sliding")
+
 
 
 func _process(delta: float) -> void:
@@ -172,8 +170,6 @@ func _physics_process(delta):
 		airState.accending:
 			if (velocity.y > 0):
 				_change_state_airState(airState.decending)
-		airState.wallJump:
-			pass
 	
 	match current_ga_state:
 		gaState.ground:
@@ -187,32 +183,22 @@ func _physics_process(delta):
 			elif direction: #Turning around while moving
 				velocity.x = move_toward(velocity.x, direction * sSPEED, tuTime)
 			else: #Letting yourself roll to a stop
-				velocity.x = move_toward(velocity.x, 0, 20)
+				velocity.x = move_toward(velocity.x, 0, 15)
 			#Jumping
 			if Input.is_action_just_pressed("ui_accept"):
 				velocity.y = JUMP_VELOCITY
 			#State Change
 			if not is_on_floor():
 				_change_state_gaState(gaState.air)
-			if Input.is_action_just_pressed("Slide"):
-				_change_state_gaState(gaState.sliding)
 		gaState.air:
+			velocity = get_real_velocity()
 			#Mid air controls
-			velocity.x = velocity.x + (direction * (aSPEED / (velocity.x + 1)))
+			#velocity.x = velocity.x + (direction * (aSPEED / (velocity.x + 1)))
 			#State Change
 			if is_on_floor():
-				_change_state_gaState(gaState.ground)
-			if Input.is_action_just_pressed("Slide"):
-				_change_state_gaState(gaState.sliding)
-		gaState.sliding:
-			velocity = get_real_velocity()
-			velocity.y += slideGrav * delta
-			velocity.x = move_toward(velocity.x, 0, 10)
-			if Input.is_action_just_released("Slide"): 
-				if is_on_floor():
+				velocity.x = move_toward(velocity.x, 0, 20)
+				if velocity.x < 5 && velocity.x > -5:
 					_change_state_gaState(gaState.ground)
-				else:
-					_change_state_gaState(gaState.air)
 
 
 func agBuffer_helper():
@@ -224,7 +210,7 @@ func agBuffer_helper():
 		_change_state_groundState(groundState.idle)
 
 func _on_guns_shot(direction, level):
-	var tVelocity = direction + velocity
+	var tVelocity = velocity + direction
 	velocity = tVelocity.limit_length(mKB)
 	print("Velocity " + str(velocity))
 	emit_signal("shot", level)

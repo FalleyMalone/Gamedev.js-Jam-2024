@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bvuej7f7fuuwf"
-path="res://.godot/imported/Green.png-a73a03d0a1febdb864b00265fc9002a0.ctex"
+uid="uid://bhpb3d550t815"
+path="res://.godot/imported/PlaceHoldTilese_Fixt.png-56545046dded959286aed4680f38c154.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Green.png"
-dest_files=["res://.godot/imported/Green.png-a73a03d0a1febdb864b00265fc9002a0.ctex"]
+source_file="res://MSC Sprites/PlaceHoldTilese_Fixt.png"
+dest_files=["res://.godot/imported/PlaceHoldTilese_Fixt.png-56545046dded959286aed4680f38c154.ctex"]
 
 [params]
 
